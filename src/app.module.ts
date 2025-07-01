@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Boat } from './boats/boats.entity';
+import { BoatInit1751392916138 } from './typeorm/migrations/1751392916138-boat-init';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { Boat } from './boats/boats.entity';
       password: 'password',
       database: 'stress_testing',
       entities: [Boat],
+      migrations: [BoatInit1751392916138],
     }),
   ],
   controllers: [],

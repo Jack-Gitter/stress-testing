@@ -1,35 +1,35 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { BoatsService } from './boats.service';
 import { Boat } from './boats.entity';
 import { UUID } from 'node:crypto';
+import { CreateBoatDTO } from './boats.dtos';
 
-@Controller()
+@Controller('boats')
 export class BoatsController {
   constructor(private boatsService: BoatsService) {}
 
-  public async rentBoat(id: UUID): Promise<void> {
+  @Patch('rent/:id')
+  public async rentBoat(@Param('id') id: UUID): Promise<void> {
     await this.boatsService.rentBoat(id);
   }
 
+  @Get()
   public async findAvailableBoats(): Promise<Boat[]> {
     return await this.boatsService.findAvailableBoats();
   }
 
-  public async returnBoat(id: UUID): Promise<void> {
+  @Patch('return/:id')
+  public async returnBoat(@Param('id') id: UUID): Promise<void> {
     await this.boatsService.returnBoat(id);
   }
 
-  public async createBoat(
-    price: number,
-    topSpeedInKnots: number,
-    capacity: number,
-    name: string,
-  ): Promise<Boat> {
+  @Post()
+  public async createBoat(@Body() body: CreateBoatDTO): Promise<Boat> {
     return await this.boatsService.createBoat(
-      price,
-      topSpeedInKnots,
-      capacity,
-      name,
+      body.price,
+      body.topSpeedInKnots,
+      body.capacity,
+      body.name,
     );
   }
 }

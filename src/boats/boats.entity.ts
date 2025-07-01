@@ -38,18 +38,18 @@ export class Boat {
     this.currentlyRented = currentlyRented;
   }
 
-  updateCondition(newCondition: BOAT_CONDITION) {
+  public updateCondition(newCondition: BOAT_CONDITION) {
     this.condition = newCondition;
   }
 
-  rentBoat() {
+  public rentBoat() {
     if (this.currentlyRented) {
       throw new ConflictException('Boat is currently rented already!');
     }
     this.currentlyRented = true;
   }
 
-  returnBoat() {
+  public returnBoat() {
     this.currentlyRented = false;
   }
 }

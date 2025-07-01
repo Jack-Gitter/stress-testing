@@ -3,10 +3,13 @@ import { UUID } from 'node:crypto';
 import { Repository } from 'typeorm';
 import { Boat } from './boats.entity';
 import { BOAT_CONDITION } from './boats.enums';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BoatsService {
-  constructor(private boatsRepository: Repository<Boat>) {}
+  constructor(
+    @InjectRepository(Boat) private boatsRepository: Repository<Boat>,
+  ) {}
 
   public async rentBoat(id: UUID): Promise<void> {
     const boat = await this.boatsRepository.findOneByOrFail({ id });

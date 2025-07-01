@@ -1,5 +1,4 @@
 GET http://localhost:3000/boats
-content-type: application/json
 
 ###
 
@@ -10,6 +9,14 @@ content-type: application/json
   "price": 100,
   "topSpeedInKnots": 20,
   "capacity": 10,
-  "name": "first boat!"
+  "name": "second boat!"
 }
 
+
+###
+
+PATCH http://localhost:3000/boats/rent/0e6c911f-fe34-4fcf-869a-f0e15eccc258
+
+###
+
+PATCH http://localhost:3000/boats/return/0e6c911f-fe34-4fcf-869a-f0e15eccc258

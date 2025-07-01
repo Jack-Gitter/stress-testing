@@ -13,7 +13,7 @@ export class BoatsService {
   ) {}
 
   public async rentBoat(id: UUID): Promise<void> {
-    this.dataSource.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       const boatRepo = manager.getRepository(Boat);
       const boat = await boatRepo.findOneByOrFail({ id });
       boat.rentBoat();
@@ -35,7 +35,7 @@ export class BoatsService {
   }
 
   public async returnBoat(id: UUID): Promise<void> {
-    this.dataSource.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       const boatRepo = manager.getRepository(Boat);
       const boat = await boatRepo.findOneByOrFail({ id });
       boat.returnBoat();

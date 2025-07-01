@@ -13,7 +13,7 @@ export class BoatsService {
     boat.rentBoat();
   }
 
-  public async findAvailableBoats() {
+  public async findAvailableBoats(): Promise<Boat[]> {
     const boats = await this.boatsRepository.find({
       where: {
         currentlyRented: false,

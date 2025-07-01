@@ -28,6 +28,9 @@ export class BoatsController {
     await this.boatsService.returnBoat(id);
   }
 
+  @Patch('rent/all')
+  public async rentAllBoats() {}
+
   @Post()
   public async createBoat(@Body() body: CreateBoatDTO): Promise<Boat> {
     return await this.boatsService.createBoat(

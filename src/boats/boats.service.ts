@@ -12,6 +12,22 @@ export class BoatsService {
     private dataSource: DataSource,
   ) {}
 
+  public async rentAllBoats() {
+    await this.dataSource.transaction(async (manager) => {
+      const boatRepo = manager.getRepository(Boat);
+      const allBoats = await boatRepo.find({
+        where: {
+          currentlyRented: false,
+        },
+      });
+      const rentedBoats = allBoats.map((boat) => {
+        boat.rentBoat();
+        return boat;
+      });
+      await boatRepo.save(rentedBoats);
+    });
+  }
+
   public async rentBoat(id: UUID): Promise<void> {
     await this.dataSource.transaction(async (manager) => {
       const boatRepo = manager.getRepository(Boat);

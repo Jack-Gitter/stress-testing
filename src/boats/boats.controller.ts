@@ -35,7 +35,7 @@ export class BoatsController {
 
   @Patch('all/return')
   public async returnAllBoats() {
-    return await this.boatsService.releaseAllBoats();
+    return await this.boatsService.returnAllBoats();
   }
 
   @Post()

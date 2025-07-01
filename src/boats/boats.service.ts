@@ -29,6 +29,21 @@ export class BoatsService {
     });
   }
 
+  public async releaseAllBoats() {
+    await this.dataSource.transaction(async (manager) => {
+      const boatRepo = manager.getRepository(Boat);
+      const allBoats = await boatRepo.find({
+        where: {
+          currentlyRented: true,
+        },
+      });
+      const rentedBoats = allBoats.map((boat) => {
+        boat.returnBoat();
+        return boat;
+      });
+      await boatRepo.save(rentedBoats);
+    });
+  }
   public async rentBoat(id: UUID): Promise<void> {
     await this.dataSource.transaction(async (manager) => {
       const boatRepo = manager.getRepository(Boat);

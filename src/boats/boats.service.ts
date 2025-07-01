@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UUID } from 'node:crypto';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Boat } from './boats.entity';
 import { BOAT_CONDITION } from './boats.enums';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,11 +9,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class BoatsService {
   constructor(
     @InjectRepository(Boat) private boatsRepository: Repository<Boat>,
+    private dataSource: DataSource,
   ) {}
 
   public async rentBoat(id: UUID): Promise<void> {
-    const boat = await this.boatsRepository.findOneByOrFail({ id });
-    boat.rentBoat();
+    this.dataSource.transaction(async (manager) => {
+      const boatRepo = manager.getRepository(Boat);
+      const boat = await boatRepo.findOneByOrFail({ id });
+      boat.rentBoat();
+      await boatRepo.save(boat);
+    });
   }
 
   public async findAvailableBoats(): Promise<Boat[]> {
@@ -26,8 +31,12 @@ export class BoatsService {
   }
 
   public async returnBoat(id: UUID): Promise<void> {
-    const boat = await this.boatsRepository.findOneByOrFail({ id });
-    boat.returnBoat();
+    this.dataSource.transaction(async (manager) => {
+      const boatRepo = manager.getRepository(Boat);
+      const boat = await boatRepo.findOneByOrFail({ id });
+      boat.returnBoat();
+      boatRepo.save(boat);
+    });
   }
 
   public async createBoat(

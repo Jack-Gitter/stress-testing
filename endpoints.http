@@ -1,2 +1,15 @@
 GET http://localhost:3000/boats
 content-type: application/json
+
+###
+
+POST http://localhost:3000/boats
+content-type: application/json
+
+{
+  "price": 100,
+  "topSpeedInKnots": 20,
+  "capacity": 10,
+  "name": "first boat!"
+}
+

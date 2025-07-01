@@ -33,6 +33,11 @@ export class BoatsController {
     return await this.boatsService.rentAllBoats();
   }
 
+  @Patch('all/return')
+  public async returnAllBoats() {
+    return await this.boatsService.releaseAllBoats();
+  }
+
   @Post()
   public async createBoat(@Body() body: CreateBoatDTO): Promise<Boat> {
     return await this.boatsService.createBoat(

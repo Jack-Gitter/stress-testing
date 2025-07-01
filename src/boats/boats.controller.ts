@@ -28,7 +28,7 @@ export class BoatsController {
     await this.boatsService.returnBoat(id);
   }
 
-  @Patch('rent/all')
+  @Patch('all/rent')
   public async rentAllBoats() {
     return await this.boatsService.rentAllBoats();
   }

@@ -2,6 +2,10 @@ GET http://localhost:3000/boats
 
 ###
 
+GET http://localhost:3000/boats/available
+
+###
+
 POST http://localhost:3000/boats
 content-type: application/json
 
@@ -20,3 +24,7 @@ PATCH http://localhost:3000/boats/rent/0e6c911f-fe34-4fcf-869a-f0e15eccc258
 ###
 
 PATCH http://localhost:3000/boats/return/0e6c911f-fe34-4fcf-869a-f0e15eccc258
+
+###
+
+PATCH http://localhost:3000/boats/all/rent

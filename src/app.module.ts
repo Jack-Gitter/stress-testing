@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Boat } from './boats/boats.entity';
 import { BoatInit1751392916138 } from './typeorm/migrations/1751392916138-boat-init';
+import { BoatsModule } from './boats/boats.module';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { BoatInit1751392916138 } from './typeorm/migrations/1751392916138-boat-i
       migrations: [BoatInit1751392916138],
     }),
   ],
-  controllers: [],
+  controllers: [BoatsModule],
   providers: [],
 })
 export class AppModule {}

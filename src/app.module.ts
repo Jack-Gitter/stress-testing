@@ -16,8 +16,9 @@ import { BoatsModule } from './boats/boats.module';
       entities: [Boat],
       migrations: [BoatInit1751392916138],
     }),
+    BoatsModule,
   ],
-  controllers: [BoatsModule],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}

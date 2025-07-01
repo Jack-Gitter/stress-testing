@@ -1,6 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BOAT_CONDITION } from './boats.enums';
 import { ConflictException } from '@nestjs/common';
+import { UUID } from 'crypto';
 
 @Entity('boat')
 export class Boat {
@@ -21,6 +22,9 @@ export class Boat {
 
   @Column({ name: 'currentlyRented', type: 'boolean' })
   public currentlyRented: boolean;
+
+  @PrimaryGeneratedColumn('uuid')
+  id: UUID;
 
   constructor(
     price: number,

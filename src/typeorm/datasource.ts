@@ -1,4 +1,4 @@
-import { Boat } from 'src/boats/boats.entity';
+import { Boat } from '../boats/boats.entity';
 import { DataSource } from 'typeorm';
 
 export default new DataSource({

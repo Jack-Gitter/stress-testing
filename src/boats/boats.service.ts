@@ -30,6 +30,10 @@ export class BoatsService {
     return boats;
   }
 
+  public async findBoats(): Promise<Boat[]> {
+    return await this.boatsRepository.find();
+  }
+
   public async returnBoat(id: UUID): Promise<void> {
     this.dataSource.transaction(async (manager) => {
       const boatRepo = manager.getRepository(Boat);

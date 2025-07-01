@@ -13,9 +13,14 @@ export class BoatsController {
     await this.boatsService.rentBoat(id);
   }
 
-  @Get()
+  @Get('available')
   public async findAvailableBoats(): Promise<Boat[]> {
     return await this.boatsService.findAvailableBoats();
+  }
+
+  @Get()
+  public async findBoats(): Promise<Boat[]> {
+    return await this.boatsService.findBoats();
   }
 
   @Patch('return/:id')

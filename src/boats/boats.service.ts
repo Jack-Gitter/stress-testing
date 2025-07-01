@@ -29,7 +29,7 @@ export class BoatsService {
     });
   }
 
-  public async releaseAllBoats() {
+  public async returnAllBoats() {
     await this.dataSource.transaction(async (manager) => {
       const boatRepo = manager.getRepository(Boat);
       const allBoats = await boatRepo.find({

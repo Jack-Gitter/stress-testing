@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import { sleep } from 'k6';
+import { sleep, check } from 'k6';
 
 export const options = {
   iterations: 10,
@@ -14,11 +14,16 @@ export default function () {
     return !boat.currentlyRented;
   });
   if (availableBoat) {
-    http.patch(`http://localhost:3000/boats/rent/${availableBoat.id}`);
-  }
-  sleep(1);
-  if (availableBoat) {
-    http.patch(`http://localhost:3000/boats/return/${availableBoat.id}`);
+    const res = http.patch(
+      `http://localhost:3000/boats/rent/${availableBoat.id}`,
+    );
+    check(res, {
+      'status was 200 or 409': (r) => r.status === 200 || r.status === 409,
+    });
+    sleep(1);
+    if (res.status === 200) {
+      http.patch(`http://localhost:3000/boats/return/${availableBoat.id}`);
+    }
   }
   sleep(1);
 }

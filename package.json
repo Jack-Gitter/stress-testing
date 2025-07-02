@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:stress": "npm run start & wait-on --delay 5000 --reverse http://localhost:3000 && k6 run test/stress-test.ts && kill $(lsof -ti:3000)"
+    "test:stress": "npm run start & wait-on --delay 5000 --reverse http://localhost:3000 && k6 run test/stress-test2.ts && kill $(lsof -ti:3000)"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

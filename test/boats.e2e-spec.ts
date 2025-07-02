@@ -2,6 +2,7 @@ import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { BoatsModule } from 'src/boats/boats.module';
+import { PostgreSqlContainer } from '@testcontainers/postgresql';
 
 describe('Cats', () => {
   let app: INestApplication;
@@ -10,11 +11,14 @@ describe('Cats', () => {
   beforeAll(async () => {
     // create a test container, then override the typeorm module with the connection information from the test container   postgresContainer = await new PostgreSqlContainer().start();
 
-    const postgresContainer = await new PostgresSQ()
+    const postgresInstance = await new PostgreSqlContainer(
+      'postgres:13.3-alpine',
+    )
       .withDatabase('contract_testing')
       .withUsername('postgres')
       .withPassword('postgres')
       .start();
+
     const moduleRef = await Test.createTestingModule({
       imports: [BoatsModule],
     }).compile();

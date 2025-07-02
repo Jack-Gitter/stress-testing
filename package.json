@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:stress": "npm run start & wait-on wait-on --reverse http://localhost:3000 && sleep 5 && k6 run test/stress-test.ts && kill $(lsof -ti:3000)"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -38,6 +39,7 @@
     "@testcontainers/postgresql": "^11.0.3",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.2",
+    "@types/k6": "^1.1.0",
     "@types/node": "^20.3.1",
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",

@@ -4,6 +4,9 @@ import { sleep, check } from 'k6';
 export const options = {
   iterations: 10,
   vus: 10,
+  thresholds: {
+    http_req_duration: ['p(95)<200'],
+  },
 };
 
 export default function () {

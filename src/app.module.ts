@@ -13,7 +13,6 @@ import { BoatsModule } from './boats/boats.module';
       username: 'postgres',
       password: 'password',
       database: 'stress_testing',
-      migrationsRun: true,
       entities: [Boat],
       migrations: [BoatInit1751392916138],
     }),

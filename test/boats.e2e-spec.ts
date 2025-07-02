@@ -6,9 +6,12 @@ import { PostgreSqlContainer } from '@testcontainers/postgresql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Boat } from '../src/boats/boats.entity';
 import { BoatInit1751392916138 } from '../src/typeorm/migrations/1751392916138-boat-init';
+import { BOAT_CONDITION } from '../src/boats/boats.enums';
+import { DataSource } from 'typeorm';
 
 describe('Cats', () => {
   let app: INestApplication;
+  let allBoats: Boat[];
 
   beforeAll(async () => {
     const postgresInstance = await new PostgreSqlContainer(
@@ -18,6 +21,18 @@ describe('Cats', () => {
       .withUsername('postgres')
       .withPassword('postgres')
       .start();
+
+    const boats = Array.from({ length: 50 }, () => {
+      const price = Math.floor(Math.random() * 1_000_000);
+      const speed = Math.floor(Math.random() * 100);
+      const capacity = Math.floor(Math.random() * 30);
+      const name = '';
+      const condition =
+        Object.values(BOAT_CONDITION)[Math.floor(Math.random() * 3)];
+      return new Boat(price, speed, capacity, name, condition, false);
+    });
+
+    allBoats = boats;
 
     const moduleRef = await Test.createTestingModule({
       imports: [
@@ -38,10 +53,17 @@ describe('Cats', () => {
 
     app = moduleRef.createNestApplication();
     await app.init();
+
+    const dataSource = app.get(DataSource);
+    const boatRepo = dataSource.getRepository(Boat);
+    await boatRepo.save(boats);
   });
 
   it(`GET boats`, () => {
-    return request(app.getHttpServer()).get('/boats').expect(200).expect({});
+    return request(app.getHttpServer())
+      .get('/boats')
+      .expect(200)
+      .expect(allBoats);
   });
 
   afterAll(async () => {

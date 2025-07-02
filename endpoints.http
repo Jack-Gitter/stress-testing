@@ -23,8 +23,12 @@ PATCH http://localhost:3000/boats/rent/0e6c911f-fe34-4fcf-869a-f0e15eccc258
 
 ###
 
-PATCH http://localhost:3000/boats/return/0e6c911f-fe34-4fcf-869a-f0e15eccc258
+PATCH http://localhost:3000/boats/return/73984355-9f2f-4f31-9d1b-a8ab4a12d7ed
 
 ###
 
 PATCH http://localhost:3000/boats/all/rent
+
+### 
+
+PATCH http://localhost:3000/boats/all/return
